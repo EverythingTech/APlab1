@@ -22,19 +22,31 @@ public class CoordDistance {
         String input2; // input for the second coordinate, stored in a string with format (x,y)
         double d;
 
-        boolean inputErr = true;
+        boolean inputErr;
 
         // Gather information from user
         do{
-
+            inputErr = false;
             System.out.println("Enter the first coordinate (x,y): ");
             input1 = scan.nextLine();
+            if(record(input1, true)){
+                inputErr = true;
+
+            }
+
+        } while(inputErr); // Repeats if  exception thrown when parsing double
+
+        do {
+            inputErr = false;
             System.out.println("Enter the second coordinate (x,y): ");
             input2 = scan.nextLine();
-            if(record(input1, true) && record(input2, false))
-                inputErr = false;
+            if (record(input2, false)) {
+                inputErr = true;
 
-        }while(inputErr); // Repeats if  exception thrown when parsing double
+            }
+        } while(inputErr);
+
+
 
         scan.close(); // Input complete. Move on to calculation.
 
@@ -52,15 +64,15 @@ public class CoordDistance {
         1 for first coordinate
         0 for second coordinate
     Postcondition:
-        Returns true if no exception is thrown; false otherwise.
+        Returns false if no exception is thrown; true otherwise.
         Stores the given coordinate into the coresponding variables.
      */
-    public static boolean record (String str, boolean coord){
+    private static boolean record (String str, boolean coord){
         // 1 for first coordinate
         // 0 for second coordinate
         try {
 
-            str.replaceAll("\\s+",""); // removes all whitespaces and non-visible characters (e.g., tab, \n)
+            str = str.replaceAll("\\s+",""); // removes all whitespaces and non-visible characters (e.g., tab, \n)
 
             if (coord) {
                 x1 = Double.parseDouble(str.replaceAll(",.*", ""));
@@ -71,9 +83,9 @@ public class CoordDistance {
             } // if else
         } catch (Exception e){
             System.out.println("Wrong input type");
-            return false;
+            return true;
         } // try catch
 
-        return true;
+        return false;
     } // record
 } // CoordDistance
