@@ -1,13 +1,20 @@
+/*
+ * Name:        CoordDistance
+ * Author:      Dylan & Yifan
+ * Date:        Feb 3, 2017
+ * Purpose:     Calculates the distance between two coordinates
+ *              using the distance formula.
+ */
 package com.EverythingTech;
 import java.util.Scanner;
 
 public class CoordDistance {
 
     // the x and y values for the two coordinates
-    static double x1 = 0.0;
-    static double y1 = 0.0;
-    static double x2 = 0.0;
-    static double y2 = 0.0;
+    private static double x1 = 0.0;
+    private static double y1 = 0.0;
+    private static double x2 = 0.0;
+    private static double y2 = 0.0;
 
     public static void main(String[] args) {
         Scanner scan = new Scanner(System.in);
@@ -52,7 +59,9 @@ public class CoordDistance {
         // 1 for first coordinate
         // 0 for second coordinate
         try {
-            str.replaceAll(" ", "");
+
+            str.replaceAll("\\s+",""); // removes all whitespaces and non-visible characters (e.g., tab, \n)
+
             if (coord) {
                 x1 = Double.parseDouble(str.replaceAll(",.*", ""));
                 y1 = Double.parseDouble(str.replaceAll(".*,", ""));
